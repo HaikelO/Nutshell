@@ -1,0 +1,40 @@
+{
+  "name": "naal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.14.1",
+    "jsonwebtoken": "^7.1.9",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.14",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "serve-favicon": "^2.1.6"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-htmlmin": "^2.2.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.2.0",
+    "grunt-contrib-watch": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaikelO/GP.git"
+  },
+  "author": "Haikel Ouagrem",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/HaikelO/GP/issues"
+  },
+  "homepage": "https://github.com/HaikelO/GP#readme"
+}
