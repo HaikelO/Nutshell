@@ -130,15 +130,13 @@ module.exports = function LeboncoinCtrl() {
                                                 filename: 'Sony.jpg'
                                             }
                                         }
-<<<<<<< HEAD
+
                                         /*category: '15',
                                         name: '',
                                         email: '',
                                         phone: '',
                                         price: '250'*/
-=======
-                                        
->>>>>>> origin/master
+
 
                                     };
                                     var formData = {
@@ -313,11 +311,11 @@ module.exports = function LeboncoinCtrl() {
                     'accept-language': 'fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4',
                     'Content-Type': 'application/x-www-form-urlencoded;'
                 },
-<<<<<<< HEAD
+
                 form: 'st_username=&st_passwd='
-=======
+
                 form: ''
->>>>>>> origin/master
+
             };
             var cookieJar = jsdom.createCookieJar();
             var conf = {
