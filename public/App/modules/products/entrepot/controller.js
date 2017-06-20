@@ -3,9 +3,10 @@ angular.module("GpApp.mEntrepot", [])
   .config(['$routeProvider',
     function($routeProvider) {
       $routeProvider.
-        when('/Entrepot', {
-          templateUrl: './App/modules/products/entrepot/view.html',
-          controller: 'EntrepotController'
+        when("/Entrepot", {
+          templateUrl: "./App/modules/products/entrepot/view.html",
+          controller: "EntrepotController",
+          controllerAs :"vm"
         });
     }
   ]);
@@ -13,8 +14,9 @@ angular.module("GpApp.mEntrepot", [])
 EntrepotController.$inject = ["$scope", "$http", "$sce","MatieresService", "ProduitsService"];
 
 function EntrepotController ($scope, $http, $sce, MatieresService, ProduitsService) {
-  $scope.Stock = [ { name : "PVC", QTT: 7}, {name : "PVC2", QTT: 5}];
-  $scope.Matieres = MatieresService.query();
-  $scope.Produits = ProduitsService.query();
+  var vm = this;
+  vm.Stock = [ { name : "PVC", QTT: 7}, {name : "PVC2", QTT: 5}];
+  vm.Matieres = MatieresService.query();
+  vm.Produits = ProduitsService.query();
 
 }

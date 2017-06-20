@@ -1,6 +1,6 @@
 <section id="corps">
     <div class="col-md-12">
-        <h2>Produits</h2>
+        <h2>Products</h2>
         <hr>
     </div>
     <div class="col-md-12">
@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="produit in pCtrl.Produits">
+            <tr ng-repeat="produit in vm.Produits">
               <td>
                 {{produit.id}}
               </td>
@@ -29,10 +29,10 @@
 
               </td>
               <td>
-                <button type="button" name="button" ng-click="pCtrl.smProduit(produit)">Modifier</button>
+                <button type="button" name="button" ng-click="vm.smProduit(produit)">Modifier</button>
               </td>
               <td>
-                <button type="button" name="button" ng-click="pCtrl.sProduit(produit)">Supprimer</button>
+                <button type="button" name="button" ng-click="vm.sProduit(produit)">Supprimer</button>
               </td>
             </tr>
           </tbody>
@@ -46,46 +46,46 @@
           </div>
           <div class="form-group">
               <label for="">Id :</label>
-              <input type="number" name="id" ng-model="pCtrl.ajoutproduit.id" value="" class="form-control">
+              <input type="number" name="id" ng-model="vm.ajoutproduit.id" value="" class="form-control">
           </div>
           <div class="form-group">
               <label for="">Nom :</label>
-              <input type="text" name="nom" ng-model="pCtrl.ajoutproduit.name" value="" class="form-control">
+              <input type="text" name="nom" ng-model="vm.ajoutproduit.name" value="" class="form-control">
           </div>
           <div class="form-group">
               <label for="">Quantité :</label>
-              <input type="number" name="nom" ng-model="pCtrl.ajoutproduit.qtt" value="" class="form-control">
+              <input type="number" name="nom" ng-model="vm.ajoutproduit.qtt" value="" class="form-control">
           </div>
           <div class="form-group">
             <h3>Produits :</h3>
             <div ng-repeat="produit in ajoutproduit.nomenclature.produits">
               <label for="">Produit</label>
-              <select ng-model="pCtrl.produit.id" ng-options="obj.id as obj.name for obj in pCtrl.Produits" class="form-control" name="">
+              <select ng-model="vm.produit.id" ng-options="obj.id as obj.name for obj in vm.Produits" class="form-control" name="">
               </select>
               <label for="">Quantité</label>
-              <input ng-model="pCtrl.produit.qtt" type="number" name="name" value="" class="form-control">
+              <input ng-model="vm.produit.qtt" type="number" name="name" value="" class="form-control">
               <br>
-              <button type="button" name="button" ng-click="pCtrl.rcProduit()" class="form-control">Annuler</button>
+              <button type="button" name="button" ng-click="vm.rcProduit()" class="form-control">Annuler</button>
               <br>
             </div>
-            <button type="button" name="button" ng-click="pCtrl.acProduit()" class="form-control">Ajouter un produit</button>
+            <button type="button" name="button" ng-click="vm.acProduit()" class="form-control">Ajouter un produit</button>
           </div>
           <div class="form-group">
             <h3>Matieres :</h3>
-            <div ng-repeat="matiere in pCtrl.ajoutproduit.nomenclature.matieres">
+            <div ng-repeat="matiere in vm.ajoutproduit.nomenclature.matieres">
               <label for="">Matiere</label>
-              <select ng-model="matiere.id" ng-options="obj.id as obj.name for obj in pCtrl.Matieres" class="form-control" name="">
+              <select ng-model="matiere.id" ng-options="obj.id as obj.name for obj in vm.Matieres" class="form-control" name="">
               </select>
               <label for="">Quantité</label>
-              <input ng-model="pCtrl.matiere.qtt" type="number" name="name" value="" class="form-control">
+              <input ng-model="vm.matiere.qtt" type="number" name="name" value="" class="form-control">
               <br>
-              <button type="button" name="button" ng-click="pCtrl.rcMatiere()" class="form-control">Annuler</button>
+              <button type="button" name="button" ng-click="vm.rcMatiere()" class="form-control">Annuler</button>
               <br>
             </div>
-            <button type="button" name="button" ng-click="pCtrl.acMatiere()" class="form-control">Ajouter une matiere</button>
+            <button type="button" name="button" ng-click="vm.acMatiere()" class="form-control">Ajouter une matiere</button>
           </div>
-          <button type="button" name="button" ng-click="pCtrl.aProduit(pCtrl.ajoutproduit)" class="btn btn-default form-control">Ajouter</button>
-          {{ pCtrl.ajoutproduit }}
+          <button type="button" name="button" ng-click="vm.aProduit(vm.ajoutproduit)" class="btn btn-default form-control">Ajouter</button>
+          {{ vm.ajoutproduit }}
         </div>
       </div>
     </div>

@@ -310,21 +310,25 @@ angular.module("GpApp.mMachinery", [])
   .config(['$routeProvider',
     function ($routeProvider) {
       $routeProvider.
-        when('/Machines', {
-          templateUrl: './App/modules/machinery/index/view.html',
-          controller: 'MachinesController'
+        when("/Machines", {
+          templateUrl: "./App/modules/machinery/index/view.html",
+          controller: "MachinesController",
+          controllerAs: "vm"
         }).
-        when('/Machine/:machineId', {
-          templateUrl: './App/modules/machinery/machine/view.html',
-          controller: 'MachineController'
+        when("/Machine/:machineId", {
+          templateUrl: "./App/modules/machinery/machine/view.html",
+          controller: "MachineController",
+          controllerAs: "vm"
         }).
-        when('/Moules', {
-          templateUrl: './App/modules/machinery/molds/view.html',
-          controller: 'MoulesController'
+        when("/Moules", {
+          templateUrl: "./App/modules/machinery/molds/view.html",
+          controller: 'MoulesController',
+          controllerAs: "vm"
         }).
-        when('/Moule/:mouleId', {
-          templateUrl: './App/modules/machinery/mold/view.html',
-          controller: 'MouleController'
+        when("/Moule/:mouleId", {
+          templateUrl: "./App/modules/machinery/mold/view.html",
+          controller: "MouleController",
+          controllerAs: "vm"
         });
     }
   ]);
@@ -332,21 +336,22 @@ angular.module("GpApp.mMachinery", [])
 MachinesController.$inject = ["$scope", "$http", "$sce", "MachinesService", "MachineService"];
 
 function MachinesController($scope, $http, $sce, MachinesService, MachineService) {
-  $scope.Machines = MachinesService.query();
+  var vm = this;
+  vm.Machines = MachinesService.query();
 
-  $scope.aMachine = function (obj) {
+  vm.aMachine = function (obj) {
     var data = angular.toJson(obj);
 
-    $scope.Machine = Machine.save(data, function () {
-      $scope.Machines = MachinesService.query();
-      $scope.ajoutM = {};
+    vm.Machine = Machine.save(data, function () {
+      vm.Machines = MachinesService.query();
+      vm.ajoutM = {};
     }
     );
   };
-  $scope.sMachine = function (prod) {
+  vm.sMachine = function (prod) {
     var options = { 'Content-Type': 'application/x-www-form-urlencoded' };
     $http.delete("http://127.0.0.1:8080/api/Machine/" + prod._id, options).success(function (response) {
-      $scope.Machines = MachinesService.query();
+      vm.Machines = MachinesService.query();
     });
   };
 
@@ -452,34 +457,35 @@ function MouleService ($resource,$localStorage) {
 MoulesController.$inject = ["$scope", "$http", "$sce", "MoulesService", "MouleService", "MachinesService"];
 
 function MoulesController ($scope, $http, $sce, MoulesService, MouleService, MachinesService) {
-  $scope.Moules = MoulesService.query();
-  $scope.Machines = MachinesService.query();
-  $scope.ajoutMoule = {};
-  $scope.ajoutMoule.machines = [];
+  var vm = this;
+  vm.Moules = MoulesService.query();
+  vm.Machines = MachinesService.query();
+  vm.ajoutMoule = {};
+  vm.ajoutMoule.machines = [];
 
-  $scope.aMoule = function (obj){
+  vm.aMoule = function (obj){
     var data = angular.toJson(obj);
 
-    $scope.Moule = MouleService.save(data, function() {
-      $scope.Moules = MoulesService.query();
-      $scope.ajoutMoule = {};
+    vm.Moule = MouleService.save(data, function() {
+      vm.Moules = MoulesService.query();
+      vm.ajoutMoule = {};
       }
     );
   };
-  $scope.sMoule = function (obj){
+  vm.sMoule = function (obj){
     var options = {'Content-Type': 'application/x-www-form-urlencoded'};
     $http.delete("http://127.0.0.1:8080/api/Moule/"+obj._id, options).success(function (response) {
-      $scope.Moules = MoulesService.query();
+      vm.Moules = MoulesService.query();
     });
   };
-  $scope.acMachine = function(){
+  vm.acMachine = function(){
       var obj = { id : null };
-      $scope.ajoutMoule.machines.push(obj);
+      vm.ajoutMoule.machines.push(obj);
       console.debug("Ajout Champ Machine");
   };
 
-  $scope.rcMachine = function(){
-      $scope.ajoutMoule.machines = [];
+  vm.rcMachine = function(){
+      vm.ajoutMoule.machines = [];
   };
 }
 MoulesService.$inject = ["$resource","$localStorage"];
@@ -495,9 +501,10 @@ angular.module("GpApp.mEntrepot", [])
   .config(['$routeProvider',
     function($routeProvider) {
       $routeProvider.
-        when('/Entrepot', {
-          templateUrl: './App/modules/products/entrepot/view.html',
-          controller: 'EntrepotController'
+        when("/Entrepot", {
+          templateUrl: "./App/modules/products/entrepot/view.html",
+          controller: "EntrepotController",
+          controllerAs :"vm"
         });
     }
   ]);
@@ -505,9 +512,10 @@ angular.module("GpApp.mEntrepot", [])
 EntrepotController.$inject = ["$scope", "$http", "$sce","MatieresService", "ProduitsService"];
 
 function EntrepotController ($scope, $http, $sce, MatieresService, ProduitsService) {
-  $scope.Stock = [ { name : "PVC", QTT: 7}, {name : "PVC2", QTT: 5}];
-  $scope.Matieres = MatieresService.query();
-  $scope.Produits = ProduitsService.query();
+  var vm = this;
+  vm.Stock = [ { name : "PVC", QTT: 7}, {name : "PVC2", QTT: 5}];
+  vm.Matieres = MatieresService.query();
+  vm.Produits = ProduitsService.query();
 
 }
 
@@ -523,22 +531,25 @@ angular.module("GpApp.mProducts", [])
   .config(['$routeProvider',
     function ($routeProvider) {
       $routeProvider.
-        when('/Produits', {
+        when('/Products', {
           templateUrl: './App/modules/products/index/view.html',
           controller: 'ProduitsController',
-          controllerAs: 'pCtrl'
+          controllerAs: 'vm'
         }).
         when('/Produit/:produitId', {
           templateUrl: '/App/modules/products/product/view.html',
-          controller: 'ProduitController'
+          controller: 'ProduitController',
+          controllerAs: 'vm'
         }).
         when('/Matieres', {
           templateUrl: './App/modules/products/materials/view.html',
-          controller: 'MatieresController'
+          controller: 'MatieresController',
+          controllerAs: 'vm'
         }).
         when('/Matiere/:matiereId', {
           templateUrl: './App/modules/products/material/view.html',
-          controller: 'MatiereController'
+          controller: 'MatiereController',
+          controllerAs: 'vm'
         });
     }
   ]);
@@ -547,90 +558,90 @@ angular.module("GpApp.mProducts", [])
 ProduitsController.$inject = ["$scope", "$http", "$sce", "ProduitsService", "ProduitService", "MatieresService"];
 
 function ProduitsController($scope, $http, $sce, ProduitsService, ProduitService, MatieresService) {
-  pCtrl = this;
-  pCtrl.modifierproduit = {};
-  pCtrl.ajoutproduit = {};
-  pCtrl.ajoutproduit.nomenclature = {};
-  pCtrl.ajoutproduit.nomenclature.produits = [];
-  pCtrl.ajoutproduit.nomenclature.matieres = [];
+  vm = this;
+  vm.modifierproduit = {};
+  vm.ajoutproduit = {};
+  vm.ajoutproduit.nomenclature = {};
+  vm.ajoutproduit.nomenclature.produits = [];
+  vm.ajoutproduit.nomenclature.matieres = [];
 
 
-  pCtrl.Produits = ProduitsService.query();
-  pCtrl.Matieres = MatieresService.query();
+  vm.Produits = ProduitsService.query();
+  vm.Matieres = MatieresService.query();
 
-  pCtrl.acProduit = function () {
+  vm.acProduit = function () {
     var produitC = { id: null, qtt: null };
-    pCtrl.ajoutproduit.nomenclature.produits.push(produitC);
+    vm.ajoutproduit.nomenclature.produits.push(produitC);
     console.debug("Ajout Champ Produit");
   };
 
-  pCtrl.rcProduit = function () {
-    pCtrl.ajoutproduit.nomenclature.produits = [];
+  vm.rcProduit = function () {
+    vm.ajoutproduit.nomenclature.produits = [];
   };
 
-  pCtrl.acMatiere = function () {
+  vm.acMatiere = function () {
     var matiereC = { id: null, qtt: null };
-    pCtrl.ajoutproduit.nomenclature.matieres.push(matiereC);
+    vm.ajoutproduit.nomenclature.matieres.push(matiereC);
     console.debug("Ajout Champ Matiere");
   };
 
-  pCtrl.rcMatiere = function () {
-    pCtrl.ajoutproduit.nomenclature.matieres = [];
+  vm.rcMatiere = function () {
+    vm.ajoutproduit.nomenclature.matieres = [];
   };
 
-  pCtrl.aProduit = function (obj) {
-    var data = angular.toJson(pCtrl.ajoutproduit);
+  vm.aProduit = function (obj) {
+    var data = angular.toJson(vm.ajoutproduit);
 
-    pCtrl.Produit = ProduitService.save(data, function () {
-      pCtrl.Produits = ProduitsService.query();
-      pCtrl.ajoutproduit = {};
+    vm.Produit = ProduitService.save(data, function () {
+      vm.Produits = ProduitsService.query();
+      vm.ajoutproduit = {};
     }
     );
   };
 
-  pCtrl.amProduit = function () {
+  vm.amProduit = function () {
     console.debug("Annuler");
-    pCtrl.modifierproduit = {};
+    vm.modifierproduit = {};
   };
 
-  pCtrl.smProduit = function (obj) {
+  vm.smProduit = function (obj) {
     if (obj.id) {
-      pCtrl.modifierproduit.id = obj.id;
+      vm.modifierproduit.id = obj.id;
     }
     if (obj.name) {
-      pCtrl.modifierproduit.name = obj.name;
+      vm.modifierproduit.name = obj.name;
     }
     if (obj.qtt) {
-      pCtrl.modifierproduit.qtt = obj.qtt;
+      vm.modifierproduit.qtt = obj.qtt;
     }
     if (obj._id) {
-      pCtrl.modifierproduit._id = obj._id;
+      vm.modifierproduit._id = obj._id;
     }
     if (obj.nomenclature.produits) {
-      pCtrl.modifierproduit.nomenclature.produits = obj.nomenclature.produits;
+      vm.modifierproduit.nomenclature.produits = obj.nomenclature.produits;
     }
     if (obj.nomenclature.matieres) {
-      pCtrl.modifierproduit.nomenclature.matieres = obj.nomenclature.matieres;
+      vm.modifierproduit.nomenclature.matieres = obj.nomenclature.matieres;
     }
     if (obj.stock) {
-      pCtrl.modifierproduit.stock = obj.stock;
+      vm.modifierproduit.stock = obj.stock;
     }
     console.debug("modifier");
   };
 
-  pCtrl.mProduit = function (obj) {
+  vm.mProduit = function (obj) {
     var data = JSON.stringify(obj);
-    pCtrl.Produit = ProduitService.save(data, function () {
-      pCtrl.Produits = ProduitsService.query();
-      pCtrl.ajoutproduit = {};
-      pCtrl.modifierproduit = {};
+    vm.Produit = ProduitService.save(data, function () {
+      vm.Produits = ProduitsService.query();
+      vm.ajoutproduit = {};
+      vm.modifierproduit = {};
     }
     );
   };
 
-  pCtrl.sProduit = function (prod) {
-    pCtrl.Produit = ProduitService.delete({ produitId: prod._id }, function () {
-      pCtrl.Produits = ProduitsService.query();
+  vm.sProduit = function (prod) {
+    vm.Produit = ProduitService.delete({ produitId: prod._id }, function () {
+      vm.Produits = ProduitsService.query();
     });
   };
 }

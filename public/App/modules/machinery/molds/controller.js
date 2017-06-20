@@ -1,33 +1,34 @@
 MoulesController.$inject = ["$scope", "$http", "$sce", "MoulesService", "MouleService", "MachinesService"];
 
 function MoulesController ($scope, $http, $sce, MoulesService, MouleService, MachinesService) {
-  $scope.Moules = MoulesService.query();
-  $scope.Machines = MachinesService.query();
-  $scope.ajoutMoule = {};
-  $scope.ajoutMoule.machines = [];
+  var vm = this;
+  vm.Moules = MoulesService.query();
+  vm.Machines = MachinesService.query();
+  vm.ajoutMoule = {};
+  vm.ajoutMoule.machines = [];
 
-  $scope.aMoule = function (obj){
+  vm.aMoule = function (obj){
     var data = angular.toJson(obj);
 
-    $scope.Moule = MouleService.save(data, function() {
-      $scope.Moules = MoulesService.query();
-      $scope.ajoutMoule = {};
+    vm.Moule = MouleService.save(data, function() {
+      vm.Moules = MoulesService.query();
+      vm.ajoutMoule = {};
       }
     );
   };
-  $scope.sMoule = function (obj){
+  vm.sMoule = function (obj){
     var options = {'Content-Type': 'application/x-www-form-urlencoded'};
     $http.delete("http://127.0.0.1:8080/api/Moule/"+obj._id, options).success(function (response) {
-      $scope.Moules = MoulesService.query();
+      vm.Moules = MoulesService.query();
     });
   };
-  $scope.acMachine = function(){
+  vm.acMachine = function(){
       var obj = { id : null };
-      $scope.ajoutMoule.machines.push(obj);
+      vm.ajoutMoule.machines.push(obj);
       console.debug("Ajout Champ Machine");
   };
 
-  $scope.rcMachine = function(){
-      $scope.ajoutMoule.machines = [];
+  vm.rcMachine = function(){
+      vm.ajoutMoule.machines = [];
   };
 }

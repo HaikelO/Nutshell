@@ -10,21 +10,25 @@ angular.module("GpApp.mMachinery", [])
   .config(['$routeProvider',
     function ($routeProvider) {
       $routeProvider.
-        when('/Machines', {
-          templateUrl: './App/modules/machinery/index/view.html',
-          controller: 'MachinesController'
+        when("/Machines", {
+          templateUrl: "./App/modules/machinery/index/view.html",
+          controller: "MachinesController",
+          controllerAs: "vm"
         }).
-        when('/Machine/:machineId', {
-          templateUrl: './App/modules/machinery/machine/view.html',
-          controller: 'MachineController'
+        when("/Machine/:machineId", {
+          templateUrl: "./App/modules/machinery/machine/view.html",
+          controller: "MachineController",
+          controllerAs: "vm"
         }).
-        when('/Moules', {
-          templateUrl: './App/modules/machinery/molds/view.html',
-          controller: 'MoulesController'
+        when("/Moules", {
+          templateUrl: "./App/modules/machinery/molds/view.html",
+          controller: 'MoulesController',
+          controllerAs: "vm"
         }).
-        when('/Moule/:mouleId', {
-          templateUrl: './App/modules/machinery/mold/view.html',
-          controller: 'MouleController'
+        when("/Moule/:mouleId", {
+          templateUrl: "./App/modules/machinery/mold/view.html",
+          controller: "MouleController",
+          controllerAs: "vm"
         });
     }
   ]);
@@ -32,21 +36,22 @@ angular.module("GpApp.mMachinery", [])
 MachinesController.$inject = ["$scope", "$http", "$sce", "MachinesService", "MachineService"];
 
 function MachinesController($scope, $http, $sce, MachinesService, MachineService) {
-  $scope.Machines = MachinesService.query();
+  var vm = this;
+  vm.Machines = MachinesService.query();
 
-  $scope.aMachine = function (obj) {
+  vm.aMachine = function (obj) {
     var data = angular.toJson(obj);
 
-    $scope.Machine = Machine.save(data, function () {
-      $scope.Machines = MachinesService.query();
-      $scope.ajoutM = {};
+    vm.Machine = Machine.save(data, function () {
+      vm.Machines = MachinesService.query();
+      vm.ajoutM = {};
     }
     );
   };
-  $scope.sMachine = function (prod) {
+  vm.sMachine = function (prod) {
     var options = { 'Content-Type': 'application/x-www-form-urlencoded' };
     $http.delete("http://127.0.0.1:8080/api/Machine/" + prod._id, options).success(function (response) {
-      $scope.Machines = MachinesService.query();
+      vm.Machines = MachinesService.query();
     });
   };
 
