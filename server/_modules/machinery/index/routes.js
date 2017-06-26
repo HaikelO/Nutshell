@@ -1,9 +1,9 @@
-var Machines = require('./controller');
+var Machinery = require('./controller');
 
-Machines = new Machines();
+Machinery = new Machinery();
 
 module.exports = function(app) {
-  app.get('/api/Machines', function (req, res) {
-    Machines.get(req, res);
+  app.get('/api/Machinery', function (req, res) {
+    Machinery.get(req, res);
   });
 }

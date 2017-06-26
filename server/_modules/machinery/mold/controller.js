@@ -21,7 +21,7 @@ module.exports = function MouleCtrl () {
             
             if(req.body._id)
             {
-            Moule.findByIdAndUpdate(req.body._id, {id : req.body.id, name : req.body.name, qtt : req.body.qtt, type : req.body.type, empreinte : req.body.empreinte, nombre_utilisation : req.body.nombre_utilisation, poid : req.body.poid, etat : req.body.etat, description : req.body.description, fabricant : req.body.fabricant, machines : req.body.machines}, function (err, tank) {
+            Moule.findByIdAndUpdate(req.body._id, {id : req.body.id, name : req.body.name, qtt : req.body.qtt, type : req.body.type, empreinte : req.body.empreinte, nombre_utilisation : req.body.nombre_utilisation, poid : req.body.poid, etat : req.body.etat, description : req.body.description, fabricant : req.body.fabricant, Machinery : req.body.Machinery}, function (err, tank) {
                 if (err) return handleError(err);
                 res.send(tank);
                 console.log("update");
@@ -38,7 +38,7 @@ module.exports = function MouleCtrl () {
                 obj.etat = req.body.etat;
                 obj.description = req.body.description;
                 obj.fabricant = req.body.fabricant;
-                obj.machines = req.body.machines;
+                obj.Machinery = req.body.Machinery;
                 obj.save();
                 res.sendStatus(200);
             }

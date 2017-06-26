@@ -15,7 +15,7 @@
       etat : String,
       description : String,
       fabricant : String,
-      machines : [
+      Machinery : [
                   { id : Number, name : String }
                 ]
     });

@@ -5,11 +5,11 @@
 
 
     var Schema = mongoose.Schema;
-    var MachineSchema = new Schema({
+    var Machinechema = new Schema({
       id : Number,
       name : String,
       type : String
     });
 
     // Mongoose Model definition
-    module.exports = mongoose.model('Machine', MachineSchema);
+    module.exports = mongoose.model('Machine', Machinechema);

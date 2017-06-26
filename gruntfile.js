@@ -4,23 +4,23 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         concat: {
             js: { //target
-                src: ['./public/App/**/*.js', '!./public/App/min/app.min.js','!./public/App/concat/app.concat.js'],
-                dest: './public/App/concat/app.concat.js'
+                src: ['./public/angular-front/app/**/*.js', '!./public/angular-front/app/min/app.min.js','!./public/angular-front/app/concat/app.concat.js'],
+                dest: './public/angular-front/app/concat/app.concat.js'
             }
         },
         jshint : {
-            beforeconcat: ['./public/App/**/*.js', '!./public/App/min/app.min.js','!./public/App/concat/app.concat.js'],
-            afterconcat: ['./public/App/min/app.js']
+            beforeconcat: ['./public/angular-front/app/**/*.js', '!./public/angular-front/app/min/app.min.js','!./public/angular-front/app/concat/app.concat.js'],
+            afterconcat: ['./public/angular-front/app/min/app.js']
         },
         uglify: {
             js: { //target
-                src: ['./public/App/concat/app.concat.js'],
-                dest: './public/App/min/app.min.js'
+                src: ['./public/angular-front/app/concat/app.concat.js'],
+                dest: './public/angular-front/app/min/app.min.js'
             }
         },
         watch: {
             scripts: {
-                files: ['./public/App/**/*.js','./public/App/**/**/*.js', '!./public/App/min/app.js'],
+                files: ['./public/angular-front/app/**/*.js','./public/angular-front/app/**/**/*.js', '!./public/angular-front/app/min/app.js'],
                 tasks: ['jshint:beforeconcat','concat','uglify'],
                 options: {
                     spawn: false
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     // Default tasks
-    grunt.registerTask('default', ['jshint:beforeconcat','concat','uglify']);
+    grunt.registerTask('default', ['watch']);
     
 
 };

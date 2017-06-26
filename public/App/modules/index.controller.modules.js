@@ -1,5 +1,0 @@
-/* Controllers */
-
-angular.module('appControllers', []);
-
-
