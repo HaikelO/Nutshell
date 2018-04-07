@@ -1,4 +1,4 @@
-var Product = require('./../_models/product');
+var Repair = require('./../_models/repair');
 
 module.exports = function (app) {
     return {
@@ -6,7 +6,7 @@ module.exports = function (app) {
         handlePost: handlePost,
         get: get,
         handleGet: handleGet,
-        deleteProduct: deleteProduct,
+        deleteRepair: deleteRepair,
         handleDelete: handleDelete,
         update: update,
         handleUpdate: handleUpdate
@@ -15,8 +15,8 @@ module.exports = function (app) {
 
 function post(item, callback) {
     if (JSON.stringify(item) !== JSON.stringify({})) {
-        var product = new Product(item);
-        return product.save(function (err, result) {
+        var repair = new Repair(item);
+        return repair.save(function (err, result) {
             if (err) {
                 return callback({ 'ERROR': err });
             }
@@ -44,7 +44,7 @@ function handlePost(req, res) {
 }
 function get(item, callback) {
     if (item) {
-        return Product.findOne(item, function (err, data) {
+        return Repair.findOne(item, function (err, data) {
             if (err) {
                 return callback({ 'ERROR': err })
             } else {
@@ -75,9 +75,9 @@ function handleGet(req, res) {
         return res.json({ 'WARNING': "INPUT IS MISSING" });
     }
 }
-function deleteProduct(id, callback) {
+function deleteRepair(id, callback) {
     if (id) {
-        Product.remove(id, function (err) {
+        Repair.remove(id, function (err) {
             if (err) {
                 return callback({ 'ERROR': err });
             }
@@ -90,7 +90,7 @@ function handleDelete(req, res) {
     if (req.body) {
         var id = req.params.id
         if (id) {
-            return deleteProduct(id, function (result) {
+            return deleteRepair(id, function (result) {
                 return res.json(result);
             });
         } else {
@@ -102,7 +102,7 @@ function handleDelete(req, res) {
 }
 function update(item, callback) {
     if (JSON.stringify(item) !== JSON.stringify({})) {
-        return Product.findByIdAndUpdate(item._id, item, { new: true }, function (err, result) {
+        return Repair.findByIdAndUpdate(item._id, item, { new: true }, function (err, result) {
             if (err) {
                 return callback({ 'ERROR': err });
             } else {

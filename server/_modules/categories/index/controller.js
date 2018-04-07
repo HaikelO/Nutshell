@@ -1,4 +1,5 @@
-var Product = require('./../_models/product');
+var Categorie = require('./../_models/categorie');
+
 
 module.exports = function (app) {
     return {
@@ -8,7 +9,7 @@ module.exports = function (app) {
 }
 
 function get(callback) {
-    return Product.find({}, function (err, data) {
+    return Categorie.find({}, function (err, data) {
         if (err) {
             return callback({ 'ERROR': err });
         } else {
@@ -17,7 +18,7 @@ function get(callback) {
     });
 }
 function handleGet(req, res) {
-    get(function (products) {
-        res.json(products);
+    get(function (categories) {
+        res.json(categories);
     });
 }

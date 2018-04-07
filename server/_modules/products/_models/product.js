@@ -5,9 +5,9 @@
 
 
     var Schema = mongoose.Schema;
-    var ProduitSchema = new Schema({
+    var ProductSchema = new Schema({
       id : Number,
-      name : String,
+      title : String,
       qtt : Number,
       stock : [
                 { qtt : Number, location : Number}
@@ -23,4 +23,4 @@
     });
 
     // Mongoose Model definition
-    module.exports = mongoose.model('Produit', ProduitSchema);
+    module.exports = mongoose.model('Product', ProductSchema);

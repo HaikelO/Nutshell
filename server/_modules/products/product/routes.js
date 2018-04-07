@@ -1,16 +1,15 @@
-var Produit = require('./controller');
+var Product = require('./controller');
 
-Produit = new Produit();
+Product = new Product();
 
-
-module.exports = function(app) {
-  app.get('/api/Produit/:id', function (req, res){
-    Produit.get(req, res);
+module.exports = function (app) {
+  app.post('/api/product/add', function (req, res) {
+    Product.handlePost(req, res);
   });
-  app.delete('/api/Produit/:id', function (req, res){
-    Produit.delete(req, res);
+  app.get('/api/product/detail/:id', function (req, res) {
+    Product.handleGet(req, res);
   });
-  app.post('/api/Produit', function (req, res) {
-    Produit.post(req, res);
+  app.delete('/api/product/:id', function (req, res) {
+    Product.handleDelete(req, res);
   });
-}
+}   

@@ -1,9 +1,9 @@
-var Produits = require('./controller');
+var Products = require('./controller');
 
-Produits = new Produits();
+Products = new Products();
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.get('/api/products', function (req, res) {
-    Produits.get(req, res);
+    Products.handleGet(req, res);
   });
 }

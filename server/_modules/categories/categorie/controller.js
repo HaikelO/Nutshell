@@ -1,4 +1,4 @@
-var Product = require('./../_models/product');
+var Categorie = require('./../_models/categorie');
 
 module.exports = function (app) {
     return {
@@ -6,7 +6,7 @@ module.exports = function (app) {
         handlePost: handlePost,
         get: get,
         handleGet: handleGet,
-        deleteProduct: deleteProduct,
+        deleteCategorie: deleteCategorie,
         handleDelete: handleDelete,
         update: update,
         handleUpdate: handleUpdate
@@ -15,8 +15,8 @@ module.exports = function (app) {
 
 function post(item, callback) {
     if (JSON.stringify(item) !== JSON.stringify({})) {
-        var product = new Product(item);
-        return product.save(function (err, result) {
+        var categorie = new Categorie(item);
+        return categorie.save(function (err, result) {
             if (err) {
                 return callback({ 'ERROR': err });
             }
@@ -44,7 +44,7 @@ function handlePost(req, res) {
 }
 function get(item, callback) {
     if (item) {
-        return Product.findOne(item, function (err, data) {
+        return Categorie.findOne(item, function (err, data) {
             if (err) {
                 return callback({ 'ERROR': err })
             } else {
@@ -75,9 +75,9 @@ function handleGet(req, res) {
         return res.json({ 'WARNING': "INPUT IS MISSING" });
     }
 }
-function deleteProduct(id, callback) {
+function deleteCategorie(id, callback) {
     if (id) {
-        Product.remove(id, function (err) {
+        Categorie.remove(id, function (err) {
             if (err) {
                 return callback({ 'ERROR': err });
             }
@@ -90,7 +90,7 @@ function handleDelete(req, res) {
     if (req.body) {
         var id = req.params.id
         if (id) {
-            return deleteProduct(id, function (result) {
+            return deleteCategorie(id, function (result) {
                 return res.json(result);
             });
         } else {
@@ -102,7 +102,7 @@ function handleDelete(req, res) {
 }
 function update(item, callback) {
     if (JSON.stringify(item) !== JSON.stringify({})) {
-        return Product.findByIdAndUpdate(item._id, item, { new: true }, function (err, result) {
+        return Categorie.findByIdAndUpdate(item._id, item, { new: true }, function (err, result) {
             if (err) {
                 return callback({ 'ERROR': err });
             } else {
