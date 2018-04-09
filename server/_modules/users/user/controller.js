@@ -1,42 +1,127 @@
 var User = require('./../_models/user');
 
-module.exports = function UserCtrl (req, res) {
+module.exports = function (app) {
     return {
-        get : function(req, res) {
-            User.findOne({_id : req.params.id}, function (err, obj) {
-                res.json(obj);
-            });
-        },
-        delete : function(req, res) {
-            User.remove({_id : req.params.id}, function (err){
-                if(err){
-                    console.error("Can't Find.!! Error");
-                }
-                else {
-                    res.sendStatus(200);
-                }
-            });
-        },
-        post : function(req, res) {
-            
-            if(req.body._id)
-            {
-                User.findByIdAndUpdate(req.body._id, {id : req.body.id, name : req.body.name, password : req.body.password, date : req.body.date, mail : req.body.mail}, function (err, tank) {
-                    if (err) return handleError(err);
-                    res.send(tank);
-                    console.log("update");
-                });
+        post: post,
+        handlePost: handlePost,
+        get: get,
+        handleGet: handleGet,
+        deleteUser: deleteUser,
+        handleDelete: handleDelete,
+        update: update,
+        handleUpdate: handleUpdate
+    }
+}
+
+function post(item, callback) {
+    if (JSON.stringify(item) !== JSON.stringify({})) {
+        var user = new User(item);
+        return user.save(function (err, result) {
+            if (err) {
+                return callback({ 'ERROR': err });
             }
-            else{
-                var obj = new User();
-                obj.id = req.body.id;
-                obj.name = req.body.name;
-                obj.password = req.body.password;
-                obj.date = req.body.date;
-                obj.mail = req.body.mail;
-                obj.save();
-                res.sendStatus(200);
-            }
+            return callback({ 'SUCCESS': result });
+        });
+    } else {
+        return callback({ 'WARNING': "INPUT IS MISSING" })
+    }
+}
+function handlePost(req, res) {
+    if (req.body) {
+        var item = req.body;
+        if (JSON.stringify(item) !== JSON.stringify({})) {
+            /* if (item !== {}) { */
+            return post(item, function (result) {
+                res.json(result);
+            });
+        } else {
+            return res.json({ 'WARNING': "INPUT IS MISSING" });
         }
+    }
+    else {
+        return res.json({ 'WARNING': "INPUT IS MISSING" });
+    }
+}
+function get(item, callback) {
+    if (item) {
+        return User.findById(item, function (err, data) {
+            if (err) {
+                return callback({ 'ERROR': err })
+            } else if (data === null) {
+                return callback({ 'WARNING': "NO DATA" });
+            } else {
+                return callback({ 'SUCCESS': data });
+            }
+        });
+    } else {
+        return callback({ 'WARNING': "ID IS MISSING" });
+    }
+}
+function handleGet(req, res) {
+    if (req.body || req.params.id) {
+        var item = req.body;
+        var id = item._id;
+        if (id) {
+            return get(id, function (result) {
+                return res.json(result);
+            });
+        } else if (req.params.id) {
+            return get(req.params.id, function (result) {
+                return res.json(result);
+            });
+        }
+        else {
+            return res.json({ 'WARNING': "ID IS MISSING" });
+        }
+    } else {
+        return res.json({ 'WARNING': "INPUT IS MISSING" });
+    }
+}
+function deleteUser(id, callback) {
+    if (id) {
+        User.remove(id, function (err) {
+            if (err) {
+                return callback({ 'ERROR': err });
+            }
+        });
+    } else {
+        return callback({ 'WARNING': "ID IS MISSING" });
+    }
+}
+function handleDelete(req, res) {
+    if (req.body) {
+        var id = req.params.id
+        if (id) {
+            return deleteUser(id, function (result) {
+                return res.json(result);
+            });
+        } else {
+            return res.json({ 'WARNING': "ID IS MISSING" });
+        }
+    } else {
+        return res.json({ 'WARNING': "INPUT IS MISSING" });
+    }
+}
+function update(item, callback) {
+    if (JSON.stringify(item) !== JSON.stringify({})) {
+        return User.findByIdAndUpdate(item._id, item, { new: true }, function (err, result) {
+            if (err) {
+                return callback({ 'ERROR': err });
+            } else {
+                return callback({ 'SUCCESS': result });
+            }
+        })
+    } else {
+        return callback({ 'WARNING': "INPUT IS MISSING" });
+    }
+}
+function handleUpdate(req, res) {
+    var item = req.body;
+    if (JSON.stringify(item) !== JSON.stringify({})) {
+        return update(item, function (result) {
+            res.json(result);
+        });
+    } else {
+        return res.json({ 'WARNING': "INPUT IS MISSING" });
     }
 }

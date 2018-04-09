@@ -2,8 +2,9 @@ var Users = require('./controller');
 
 Users = new Users();
 
-module.exports = function(app) {
-  app.get('/api/Users',function (req, res) {
-    Users.get(req, res);
+module.exports = function (app) {
+  app.get('/api/users', function (req, res) {
+    console.log("USERS");
+    Users.handleGet(req, res);
   });
 }

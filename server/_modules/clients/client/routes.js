@@ -1,15 +1,15 @@
-var Client  = require('./controller');
+var Client = require('./controller');
 
 Client = new Client();
 
-module.exports = function(app) {
-  app.get('/api/Client/:id', function (req, res){
-    Client.get(req, res);
+module.exports = function (app) {
+  app.post('/api/client/add', function (req, res) {
+    Client.handlePost(req, res);
   });
-  app.delete('/api/Client/:id', function (req, res){
-    Client.delete(req, res);
+  app.get('/api/client/detail/:id', function (req, res) {
+    Client.handleGet(req, res);
   });
-  app.post('/api/Client', function (req, res) {
-    Client.post(req, res);
+  app.delete('/api/client/:id', function (req, res) {
+    Client.handleDelete(req, res);
   });
-}
+}   

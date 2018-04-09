@@ -2,11 +2,8 @@ var Clients = require('./controller');
 
 Clients = new Clients();
 
-module.exports = function(app) {
-  app.get('/api/Clients', function (req, res) {
-    Clients.get(req, res);
-  });
+module.exports = function (app) {
   app.get('/api/clients', function (req, res) {
-    Clients.get(req, res);
+    Clients.handleGet(req, res);
   });
 }
