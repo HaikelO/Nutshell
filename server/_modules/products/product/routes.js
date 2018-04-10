@@ -9,7 +9,7 @@ module.exports = function (app) {
   app.get('/api/product/detail/:id', function (req, res) {
     Product.handleGet(req, res);
   });
-  app.delete('/api/product/:id', function (req, res) {
+  app.delete('/api/product/delete/:id', function (req, res) {
     Product.handleDelete(req, res);
   });
 }   
